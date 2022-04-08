@@ -1,2 +1,0 @@
-// source --> https://www.building-u.com/wp-content/plugins/ocean-extra//includes/widgets/js/share.min.js?ver=5.4.2 
-function owpShareOnClick(a){var b="640",c="480",d=screen.height/2-c/2,e=screen.width/2-b/2,f="toolbar=0,status=0,width="+b+",height="+c+",top="+d+",left="+e;open(a,"",f)}var $j=jQuery.noConflict();

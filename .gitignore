@@ -96,4 +96,6 @@ wp-config.php
 /wp-content/themes/twenty*/
 /wp-content/plugins/hello.php
 /wp-content/uploads/
+/wp-content/cache/all/
+/wp-content/cache/wpfc-minified
 /.htaccess
