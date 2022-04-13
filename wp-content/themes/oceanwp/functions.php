@@ -263,15 +263,13 @@ final class OCEANWP_Theme_Class {
 			register_setting('custom-options-perspective-settings','perspectives_linkedin_post');
 			register_setting('custom-options-perspective-settings','perspectives_linkedin_post_link');
 
-		    add_settings_field('page_for_might_like', 'Might Like page:',function( $args ) {
-			    $id = 'page_for_might_like';
-			    
+            $id = 'page_for_might_like';
+		    add_settings_field($id, 'Might Like page:',function( $args ) use ($id) {
 			    wp_dropdown_pages(array('name' => $id,'show_option_none' => '&mdash; Select &mdash;','option_none_value' => '0','selected' => get_option($id),));
 			}, 'reading', 'default', array('label_for' => 'field-'.$id,'class' => 'row-' . $id,));
 
-			add_settings_field('page_for_account', 'Account page:',function( $args ) {
-			    $id = 'page_for_account';
-			    
+            $id = 'page_for_account';
+			add_settings_field($id, 'Account page:',function( $args ) use ($id) {
 			    wp_dropdown_pages(array('name' => $id,'show_option_none' => '&mdash; Select &mdash;','option_none_value' => '0','selected' => get_option($id),));
 			}, 'reading', 'default', array('label_for' => 'field-'.$id,'class' => 'row-' . $id,));
 
@@ -2003,7 +2001,7 @@ final class OCEANWP_Theme_Class {
 	        'map_meta_cap' => $news_mapmetacap,
 	        'hierarchical' => false,
 	        'supports' => array('title','editor'),
-	        'has_archive' => falsee,
+	        'has_archive' => false,
 	        'rewrite' => false,
 	        'query_var' => true,
 	        'can_export' => true,
@@ -2055,7 +2053,7 @@ final class OCEANWP_Theme_Class {
 	        'map_meta_cap' => $news_mapmetacap,
 	        'hierarchical' => false,
 	        'supports' => array('title','thumbnail'),
-	        'has_archive' => falsee,
+	        'has_archive' => false,
 	        'rewrite' => false,
 	        'query_var' => true,
 	        'can_export' => true,
@@ -2107,7 +2105,7 @@ final class OCEANWP_Theme_Class {
 	        'map_meta_cap' => $news_mapmetacap,
 	        'hierarchical' => false,
 	        'supports' => array('title','thumbnail'),
-	        'has_archive' => falsee,
+	        'has_archive' => false,
 	        'rewrite' => false,
 	        'query_var' => true,
 	        'can_export' => true,
