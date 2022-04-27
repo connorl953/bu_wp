@@ -1332,16 +1332,9 @@ final class OCEANWP_Theme_Class {
 
 			//other
 			$ucrewMembers = get_users(array('role'=>'ucrew'));
-			$isHubSpotActive = get_user_meta($user -> ID,'_hubspot_active',true);
 			$ucrewMentor = get_user_meta($user -> ID,'_ucrew_mentor',true);
 
-			$html .= '<table class="form-table"><tbody><tr class="show-admin-bar user-admin-bar-front-wrap"><th scope="row">HubSpot Active</th><td><fieldset><legend class="screen-reader-text"><span>HubSpot Active</span></legend><label for="_hubspot_active"><input name="_hubspot_active" type="checkbox" id="_hubspot_active" value="1"'; 
-
-
-			if($isHubSpotActive == 1){	
-				$html .= ' checked="checked"';
-			}
-			
+			$html .= '<table class="form-table"><tbody><tr class="show-admin-bar user-admin-bar-front-wrap"><th scope="row">HubSpot Active</th><td><fieldset><legend class="screen-reader-text"><span>HubSpot Active</span></legend>';
 			$html .= 'onclick="return false;" style="cursor:default;"></label><br></fieldset></td></tr><tr class="show-admin-bar user-admin-bar-front-wrap"><th scope="row">U-Crew Mentor</th><td><select name="_ucrew_mentor"><option>-- Select --</option>';
 
 			foreach($ucrewMembers as $key => $value){
@@ -1490,12 +1483,6 @@ final class OCEANWP_Theme_Class {
 		$currentUser = wp_get_current_user();
 		
 		if(isset($currentUser -> data -> ID)){
-			$isHubSpotActive = get_user_meta($currentUser -> data -> ID,'_hubspot_active',true);
-			
-			if(!$isHubSpotActive){
-				print_r('not HubSpot active');
-			}
-
 			$html = '<!--p>You are logged in as <strong style="color:#000;">'.$currentUser -> data -> display_name.'</strong><br /><form action="'.esc_url(admin_url('admin-post.php')).'" method="POST" onsubmit="return logout(this)" novalidate><button>Logout</button><input type="hidden" name="action" value="process_logout"></form></p--><script>document.location.href = \'/my-account/\'</script>';
 		}else{
 			$html = '<form name="signup" action="'.esc_url(admin_url('admin-post.php')).'" method="POST" onsubmit="return login_signup(this)" novalidate><fieldset><label>First Name*</label><input name="first_name" type="text" value="" required /></fieldset><fieldset><label>Last Name*</label><input name="last_name" type="text" value="" required /></fieldset><fieldset><label>Email Address*</label><input name="email_address" type="email" value="" required /></fieldset><fieldset><label>Password*</label><input name="password" type="password" value="" required/></fieldset><fieldset><label>Confirm Password*</label><input name="confirm_password" type="password" value="" required/></fieldset><fieldset><button>Signup</button><input type="hidden" name="action" value="process_signup"></fieldset></form>';
@@ -1727,8 +1714,6 @@ final class OCEANWP_Theme_Class {
 				if(!isset($insertUser -> errors)){
 					$login = wp_signon($userData,false);
 					$response['success'] = true;
-
-					add_user_hubspot($userData['first_name'],$userData['last_name'],$userData['user_email']);
 				}else{
 					$error = $insertUser -> get_error_message();
 				}
@@ -3391,13 +3376,5 @@ function add_user_hubspot($firstName = null,$lastName = null,$email = null){
 		$statusCode = @curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		
 		curl_close($ch);
-
-		if($statusCode === 200){
-			$user = get_user_by('email',$email);
-
-			if($user){
-				update_user_meta($user -> ID,'_hubspot_active',1);
-			}
-		}
 	}
 }
