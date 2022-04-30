@@ -1,2 +1,3 @@
 User-agent: *
 Disallow: /wp-admin/
+Disallow: /opportunities/building-u-r-and-d-social-media-internship/
