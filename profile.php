@@ -244,3 +244,5 @@ echo "    </div>\n";
 echo "\n";
 echo "\n";
 ?>
+
+<script src="profile.js" type="text/javascript">
