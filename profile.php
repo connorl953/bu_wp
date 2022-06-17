@@ -15,21 +15,21 @@ echo "    <link href=\"https://fonts.googleapis.com/css2?family=Euphoria+Script&
 #echo "    <script src=\"profile.js\"></script>\n";
 echo "<script>
   ( document ).ready(function() {
-              ("#profile-btn").on('click', () => {
-                ("#profile-section").toggleClass("hidden");
+              (\"#profile-btn\").on('click', () => {
+                (\"#profile-section\").toggleClass(\"hidden\");
               });
 
-              ("#u-points-btn").on('click', () => {
-                  ("#gift-card-section").toggleClass("hidden");
+              (\"#u-points-btn\").on('click', () => {
+                  (\"#gift-card-section\").toggleClass(\"hidden\");
                 
               });
 
-              ("#donation-btn").on('click', () => {
-                  ("#donation-field").toggleClass("hidden");
+              (\"#donation-btn\").on('click', () => {
+                  (\"#donation-field\").toggleClass(\"hidden\");
               });
 
-              ("#history-btn").on('click', () => {
-                  ("#table-of-history").toggleClass("hidden");
+              (\"#history-btn\").on('click', () => {
+                  (\"#table-of-history\").toggleClass(\"hidden\");
               });
       });
 <\script>";
