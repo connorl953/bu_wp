@@ -1,9 +1,30 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+      function jsFunction(){
+        ( document ).ready(function() {
+              ("#profile-btn").on('click', () => {
+              ("#profile-section").toggleClass("hidden");
+            });
 
-echo "<!DOCTYPE html>\n";
-echo "<html lang=\"en\">\n";
-echo "<head>\n";
-echo "    <meta charset=\"UTF-8\">\n";
+            ("#u-points-btn").on('click', () => {
+                ("#gift-card-section").toggleClass("hidden");
+                
+            });
+
+            ("#donation-btn").on('click', () => {
+                ("#donation-field").toggleClass("hidden");
+            });
+
+            ("#history-btn").on('click', () => {
+                 ("#table-of-history").toggleClass("hidden");
+             });
+    });
+  }
+  </script>
+<?php
 echo "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n";
 echo "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n";
 echo "    <title>Profile</title>\n";
@@ -12,9 +33,10 @@ echo "    <link rel=\"stylesheet\" href=\"libs/fontawesome-free-6.1.1-web/css/al
 echo "    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n";
 echo "    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n";
 echo "    <link href=\"https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Raleway&display=swap\" rel=\"stylesheet\"> \n";
-echo "    <script src=\"profile.js\"></script>\n";
+#echo "    <script src=\"profile.js\"></script>\n";
 echo "</head>\n";
 echo "<body>\n";
+echo "<script type="text/javascript">jsFunction();</script>";
 echo "    <header class=\"banner\">\n";
 echo "        <div class=\"banner-wrapper\">\n";
 echo "            <h1 class=\"title\">My Faves</h1>\n";
