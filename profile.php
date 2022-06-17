@@ -13,7 +13,7 @@ echo "    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n";
 echo "    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n";
 echo "    <link href=\"https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Raleway&display=swap\" rel=\"stylesheet\"> \n";
 #echo "    <script src=\"profile.js\"></script>\n";
-echo "<script type="text/javascript">
+echo "<script>
   ( document ).ready(function() {
               ("#profile-btn").on('click', () => {
                 ("#profile-section").toggleClass("hidden");
