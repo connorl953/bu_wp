@@ -1,5 +1,4 @@
- <script src="libs/jquery/jquery.js"></script>
-     <script>
+ 
         $( document ).ready(function() {
             $("#profile-btn").on('click', () => {
                 $("#profile-section").toggleClass("hidden");
@@ -19,4 +18,3 @@
              });
     });
 
-    </script>
