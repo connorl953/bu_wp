@@ -12,6 +12,7 @@ echo "    <link rel=\"stylesheet\" href=\"libs/fontawesome-free-6.1.1-web/css/al
 echo "    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n";
 echo "    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n";
 echo "    <link href=\"https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Raleway&display=swap\" rel=\"stylesheet\"> \n";
+echo "    <script src=\"profile.js\"></script>\n";
 echo "</head>\n";
 echo "<body>\n";
 echo "    <header class=\"banner\">\n";
@@ -243,5 +244,4 @@ echo "\n";
 echo "    </div>\n";
 echo "\n";
 echo "\n";
-<script src="profile.js" type="text/javascript">
 ?>
