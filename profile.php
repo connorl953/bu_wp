@@ -12,30 +12,6 @@ echo "    <link rel=\"stylesheet\" href=\"libs/fontawesome-free-6.1.1-web/css/al
 echo "    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n";
 echo "    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n";
 echo "    <link href=\"https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Raleway&display=swap\" rel=\"stylesheet\"> \n";
-?>
- <script src="libs/jquery/jquery.js"></script>
-     <script>
-        $( document ).ready(function() {
-            $("#profile-btn").on('click', () => {
-                $("#profile-section").toggleClass("hidden");
-            });
-
-            $("#u-points-btn").on('click', () => {
-                $("#gift-card-section").toggleClass("hidden");
-                
-            });
-
-            $("#donation-btn").on('click', () => {
-                $("#donation-field").toggleClass("hidden");
-            });
-
-            $("#history-btn").on('click', () => {
-                 $("#table-of-history").toggleClass("hidden");
-             });
-    });
-
-    </script>
-<?php
 echo "</head>\n";
 echo "<body>\n";
 echo "    <header class=\"banner\">\n";
