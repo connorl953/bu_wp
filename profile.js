@@ -1,5 +1,5 @@
  ( document ).ready(function() {
-            $("#profile-btn").on('click', () => {
+            ("#profile-btn").on('click', () => {
                ("#profile-section").toggleClass("hidden");
             });
 
