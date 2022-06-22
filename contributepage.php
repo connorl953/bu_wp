@@ -14,6 +14,22 @@ echo "    <link href=\"https://fonts.googleapis.com/css2?family=Raleway:wght@500
 echo "    <title>Document</title>\n";
 echo "    <link href=\"contribute-page.css\" rel=\"stylesheet\"/>\n";
 echo "    <script src=\"contribute-page.js\"></script>\n";
+echo '<script> 
+        crossorigin="anonymous"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+     </script>';
+echo '<script> 
+        crossorigin="anonymous"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+     </script>';
+echo '<script> 
+        crossorigin="anonymous"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js">
+      </script>';
+      
 echo "</head>\n";
 echo "<body class=\"vh-100\">\n";
 echo "<div class=\"container-fluid\">\n";
