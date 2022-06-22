@@ -243,28 +243,29 @@ echo "\n";
 echo "    </div>\n";
 echo "\n";
 echo "\n";
-echo "    <script src=\"libs/jquery/jquery.js\"></script>\n";
-echo "     <script>\n";
-echo "        $( document ).ready(function() {\n";
-echo "            $(\"#profile-btn\").on('click', () => {\n";
-echo "                $(\"#profile-section\").toggleClass(\"hidden\");\n";
-echo "            });\n";
+echo "<script src=\"libs/jquery/jquery.js\"></script>";
 echo "\n";
-echo "            $(\"#u-points-btn\").on('click', () => {\n";
-echo "                $(\"#gift-card-section\").toggleClass(\"hidden\");\n";
-echo "                \n";
-echo "            });\n";
-echo "\n";
-echo "            $(\"#donation-btn\").on('click', () => {\n";
-echo "                $(\"#donation-field\").toggleClass(\"hidden\");\n";
-echo "            });\n";
-echo "\n";
-echo "            $(\"#history-btn\").on('click', () => {\n";
-echo "                 $(\"#table-of-history\").toggleClass(\"hidden\");\n";
-echo "             });\n";
-echo "    });\n";
-echo "\n";
-echo "    </script>\n";
+echo '<script>
+   $( document ).ready(function() {
+       $("#profile-btn").on(\'click\', () => {
+           $("#profile-section").toggleClass("hidden");
+       });
+
+       $("#u-points-btn").on(\'click\', () => {
+           $("#gift-card-section").toggleClass("hidden");
+           
+       });
+
+       $("#donation-btn").on(\'click\', () => {
+           $("#donation-field").toggleClass("hidden");
+       });
+
+       $("#history-btn").on(\'click\', () => {
+            $("#table-of-history").toggleClass("hidden");
+        });
+});
+
+</script>';
 echo "</body>\n";
 echo "</html>";
 
