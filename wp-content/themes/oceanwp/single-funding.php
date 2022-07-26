@@ -26,7 +26,19 @@ var actionUrl = '<?php echo esc_url(admin_url('admin-post.php')) ?>';
 					<h1><?php if($link){ ?><a href="<?php echo $link ?>" target="_BLANK"><?php } ?><?php the_title(); ?><?php if($link){ ?></a><?php } ?></h1>
 					<?php if($subtitle){ ?><p><?php echo $subtitle ?></p><?php } ?>
 				</div>
-				<div class="add-btn"><a href="#" data-id="<?php echo $post -> ID; ?>" data-user="<?php if($validUser){ echo 1; }else{ echo 0; } ?>"><?php if($isFavourite){ ?><i class="fa fa-check"></i> Added To Favourites<?php }else{ ?><i class="fa fa-plus"></i> to Favourites<?php } ?></a></div>
+				<div class="add-btn">
+					<a	href="#"
+ 							data-favourite="<?php echo $isFavourite ? 1: 0; ?>"
+							data-id="<?php echo $post -> ID; ?>"
+							data-user="<?php echo $validUser ? 1: 0; ?>"
+							class="<?php echo $isFavourite ? 'disabled' : '' ?>">
+						<?php if($isFavourite){ ?>
+							<i class="fa fa-check"></i> Added To Favourites
+						<?php }else{ ?>
+							<i class="fa fa-plus"></i> to Favourites
+						<?php } ?>
+					</a>
+				</div>
 				<?php 
 
 				if(RESTRICT_PROGRAMS && !$currentUser || RESTRICT_PROGRAMS && !$currentUser -> ID){ ?>

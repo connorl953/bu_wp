@@ -88,6 +88,8 @@ fabric.properties
 /wp-content/themes/index.php
 /wp-content/upgrade/
 /wp-content/vendor/
+/wp-content/themes/oceanwp/vendor
+/wp-content/themes/oceanwp/woocommerce
 /wp-content/ai1wm-backups/
 /wp-includes/
 /index.php
@@ -102,3 +104,4 @@ wp-config.php
 /wp-content/uploads/
 /wp-content/cache/
 /.htaccess
+/ .htaccess.bk

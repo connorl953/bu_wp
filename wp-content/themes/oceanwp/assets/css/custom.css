@@ -645,7 +645,7 @@ form[name="custom"] fieldset button {color:#000;}
 .page-template-account .archive-listing .container .row .result.opportunities .bubble {background:url('../img/bg-bubble-opportunities.png') no-repeat center center;}
 .page-template-account .archive-listing .container .row .result.opportunities .bubble div {color:#FFF;}
 .page-template-account .archive-listing .container .row .result.opportunities .bubble div small {position:absolute;bottom:10px;left:0;right:0;width:100%;text-align:center;}
-.page-template-account .archive-listing .container .row .result .bubble div i {display:none;position:absolute;top:12px;right:12px;width:24px;height:24px;text-align:center;color:red;line-height:28px;background:#000;border-radius:12px 12px;cursor:pointer;}
+.page-template-account .archive-listing .container .row .result .bubble div i {display:none;position:absolute;top:12px;right:12px;width:24px;height:24px;text-align:center;color:white;line-height:28px;background:red;border-radius:12px 12px;cursor:pointer;}
 .page-template-account .archive-listing .container .row .result .bubble div:hover i {display:block}
 
 /* ----- icons page ----- */
@@ -653,6 +653,7 @@ form[name="custom"] fieldset button {color:#000;}
 .single-programs .arm-details .container .row .col .add-btn {position:absolute;top:65px;right:0;width:40%;text-align:center;float:right;}
 .single-programs .arm-details .container .row .col .has-subtitle + .add-btn {top:100px;}
 .single-programs .arm-details .container .row .col .add-btn a {display:inline-block;margin:0 auto;padding:10px 20px 10px 20px;color:#FFF;background:#0D868D;float:right;border-radius:25px 25px;}
+.single-programs .arm-details .container .row .col .add-btn a.disabled {display:inline-block;margin:0 auto;padding:10px 20px 10px 20px;color:#FFF;background:#5daeed; cursor: default; float:right;border-radius:25px 25px;}
 .single-programs .arm-details .container .row .col .add-btn:after {position:absolute;top:0;right:-70px;display:block;width:70px;height:40px;background:url('../img/bg-add-favs.png') no-repeat center left/contain;content:'';}
 .single-programs .arm-details .container .row .col .icon {position:relative;margin:0 0 60px 0;display:inline-block;width:100%;max-width:214px;height:160px;background:url('../img/bg-programs.png') no-repeat center center/cover;}
 .single-programs .arm-details .container .row .col .icon .logo {position:absolute;top:65px;right:15px;width:75px;height:75px;}
@@ -664,6 +665,7 @@ form[name="custom"] fieldset button {color:#000;}
 .single-funding .arm-details .container .row .col .add-btn {position:absolute;top:65px;right:0;width:40%;text-align:center;float:right;}
 .single-funding .arm-details .container .row .col .has-subtitle + .add-btn {top:100px;}
 .single-funding .arm-details .container .row .col .add-btn a {display:inline-block;margin:0 auto;padding:10px 20px 10px 20px;color:#FFF;background:#0D868D;float:right;border-radius:25px 25px;}
+.single-funding .arm-details .container .row .col .add-btn a.disabled {display:inline-block;margin:0 auto;padding:10px 20px 10px 20px;color:#FFF;background:#5daeed; cursor: default; float:right;border-radius:25px 25px;}
 .single-funding	 .arm-details .container .row .col .add-btn:after {position:absolute;top:0;right:-70px;display:block;width:70px;height:40px;background:url('../img/bg-add-favs.png') no-repeat center left/contain;content:'';}
 
 
@@ -672,6 +674,7 @@ form[name="custom"] fieldset button {color:#000;}
 .single-opportunities .arm-details .container .row .col .add-btn {position:absolute;top:65px;right:0;width:40%;text-align:center;float:right;}
 .single-opportunities .arm-details .container .row .col .has-subtitle + .add-btn {top:100px;}
 .single-opportunities .arm-details .container .row .col .add-btn a {display:inline-block;margin:0 auto;padding:10px 20px 10px 20px;color:#FFF;background:#0D868D;float:right;border-radius:25px 25px;}
+.single-opportunities .arm-details .container .row .col .add-btn a.disabled {display:inline-block;margin:0 auto;padding:10px 20px 10px 20px;color:#FFF;background:#5daeed; cursor: default; float:right;border-radius:25px 25px;}
 .single-opportunities .arm-details .container .row .col .add-btn:after {position:absolute;top:0;right:-70px;display:block;width:70px;height:40px;background:url('../img/bg-add-favs.png') no-repeat center left/contain;content:'';}
 
 
@@ -720,6 +723,31 @@ form[name="custom"] fieldset button {color:#000;}
 .custom-footer .elementor-column-wrap {
 	align-items:inherit!important;
 }
+
+.global{ width: 100%;padding: 1% 0;background-color: #fff;color: #98aeb3;font-size: 1.5em;}
+.footer-inner {width: 100%;max-width: 1200px;margin: 0 auto;}
+.footer-row {width: 100%;position: relative;padding-top: 1%;}
+.spaced {display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between;align-items: stretch;align-content: stretch;}
+.footer-col {position: relative;}
+#global-footer .footer-col {width: 50%;}
+#global-footer p {font-size: 0.9em;line-height: 1.86;}
+#global-footer a {color: #98aeb3;text-decoration: none;}
+#global-footer .links, #global-footer .social{text-align: right;}
+#global-footer .social {padding-top: 4%;}
+.sponsor-section {	display: flex;justify-content: start;margin-bottom: 1%;margin-top: 0;}
+.sponsor-section p {width: 100%;margin: 0;}
+.sponsors {	padding: 0 0 0 1%;	width: 100%;}
+.sponsors li {margin:0;padding: 1% 0;width: 10%;display: flex;justify-content: center;align-items: center;}
+#global-footer .links li, #global-footer .social li, #global-footer .sponsors li{display: inline-block;vertical-align: middle;font-size: 0.9em;}
+#global-footer .links li:hover {font-weight: bold;}
+a.uline {position: relative;}
+#global-footer .legal {opacity: .5;	margin-top: 30px;}
+#global-footer .vline-div{padding: 0 5px;}
+.heart-icon {color: #baeafc;}
+footer hr {	color: white; border-top: 1px solid #98aeb3;}
+.image-icon-60 {	width: 60%;	margin-left: 5%;padding: 5%;}
+.image-icon-75 {	width: 75%;}
+.flock {	background-color: #00bb53;}
 
 @media only screen and (min-width :240px) and (max-width :991px){
 	.elementor-shortcode form input[type="image"] {max-width:100%;}

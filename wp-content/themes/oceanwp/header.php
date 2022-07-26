@@ -59,6 +59,9 @@
 	<script type="text/javascript">
 	var themeUrl = '<?php echo get_template_directory_uri(); ?>';
 	</script>
+
+	<!-- FONT AWESOME -->
+	<script src="https://kit.fontawesome.com/dda0a07667.js" crossorigin="anonymous"></script>
 </head>
 
 <body <?php body_class(); ?>>

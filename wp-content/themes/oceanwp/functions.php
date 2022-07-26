@@ -1547,12 +1547,10 @@ final class OCEANWP_Theme_Class {
 			}else{
 				$wpdb -> delete($wpdb -> prefix.'favourites',array('user'=>$currentUser -> data -> ID,'post'=>$postId));
 			}
-
 			$response['success'] = true;
 		}else{
 			$response['error'] = 'No user logged in!';
 		}
-
 		print(json_encode($response));
 	}
 
@@ -1779,7 +1777,7 @@ final class OCEANWP_Theme_Class {
 	        'hierarchical' => false,
 	        'supports' => array('title','editor','thumbnail'),
 	        'has_archive' => true,
-	        'rewrite' => array('slug'=>'programs'),
+	        'rewrite' => array('slug'=>'programs', 'with_front' => false),
 	        'query_var' => true,
 	        'can_export' => true,
 	        'show_in_nav_menus' => false,
@@ -1831,7 +1829,7 @@ final class OCEANWP_Theme_Class {
 	        'hierarchical' => false,
 	        'supports' => array('title','editor'),
 	        'has_archive' => true,
-	        'rewrite' => array('slug'=>'funding'),
+	        'rewrite' => array('slug'=>'funding', 'with_front' => false),
 	        'query_var' => true,
 	        'can_export' => true,
 	        'show_in_nav_menus' => false,
@@ -1883,7 +1881,7 @@ final class OCEANWP_Theme_Class {
 	        'hierarchical' => false,
 	        'supports' => array('title','editor'),
 	        'has_archive' => true,
-	        'rewrite' => array('slug'=>'opportunities'),
+	        'rewrite' => array('slug'=>'opportunities', 'with_front' => false),
 	        'query_var' => true,
 	        'can_export' => true,
 	        'show_in_nav_menus' => false,
@@ -1935,7 +1933,7 @@ final class OCEANWP_Theme_Class {
 	        'hierarchical' => false,
 	        'supports' => array('title','thumbnail'),
 	        'has_archive' => true,
-	        'rewrite' => array('slug'=>'u-might-like'),
+	        'rewrite' => array('slug'=>'u-might-like', 'with_front' => false),
 	        'query_var' => true,
 	        'can_export' => true,
 	        'show_in_nav_menus' => false,
@@ -2592,71 +2590,73 @@ final class OCEANWP_Theme_Class {
 	 * @since   1.0.0
 	 */
 	public static function theme_css() {
+		global $wp;
+    $uri = '/' . add_query_arg(array(), $wp->request);
 
-		// Define dir
-		$dir = OCEANWP_CSS_DIR_URI;
-		$theme_version = OCEANWP_THEME_VERSION;
+    // Common CSS
+    wp_enqueue_style( 'oceanwp-style', OCEANWP_CSS_DIR_URI .'style.min.css', false, OCEANWP_THEME_VERSION );
+    wp_enqueue_style( 'building-u', OCEANWP_CSS_DIR_URI .'building-u.css', false, OCEANWP_THEME_VERSION );
 
-		// Remove font awesome style from plugins
-		wp_deregister_style( 'font-awesome' );
-		wp_deregister_style( 'fontawesome' );
-
-		// Load font awesome style
-		wp_enqueue_style( 'font-awesome', $dir .'third/font-awesome.min.css', false, '4.7.0' );
-
-		// Register simple line icons style
-		wp_enqueue_style( 'simple-line-icons', $dir .'third/simple-line-icons.min.css', false, '2.4.0' );
-
-		// Register the lightbox style
-		wp_enqueue_style( 'magnific-popup', $dir .'third/magnific-popup.min.css', false, '1.0.0' );
-
-		// Register the slick style
-		wp_enqueue_style( 'slick', $dir .'third/slick.min.css', false, '1.6.0' );
-
-		// Main Style.css File
-		wp_enqueue_style( 'oceanwp-style', $dir .'style.min.css', false, $theme_version );
-
-		// Custom custom.css File
-		//wp_enqueue_style( 'oceanwp-style-custom', $dir .'custom.css');
-
-		// Register hamburgers buttons to easily use them
-		wp_register_style( 'oceanwp-hamburgers', $dir .'third/hamburgers/hamburgers.min.css', false, $theme_version );
-
-		// Register hamburgers buttons styles
-		$hamburgers = oceanwp_hamburgers_styles();
-		foreach ( $hamburgers as $class => $name ) {
-			wp_register_style( 'oceanwp-'. $class .'', $dir .'third/hamburgers/types/'. $class .'.css', false, $theme_version );
+		echo $uri . PHP_EOL;
+		switch ($uri) {
+			case '/' :
+					wp_enqueue_style( 'homepage', OCEANWP_CSS_DIR_URI .'/pages/homepage.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case '/u-crew':
+					wp_enqueue_style( 'u-crew', OCEANWP_CSS_DIR_URI .'/pages/u-crew.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case '/contribute':
+					wp_enqueue_style( 'contribute', OCEANWP_CSS_DIR_URI .'/pages/contribute.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case '/resources':	
+					wp_enqueue_style( 'resources', OCEANWP_CSS_DIR_URI .'/pages/resources.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case '/partners':
+					wp_enqueue_style( 'partners', OCEANWP_CSS_DIR_URI .'/pages/partners.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case '/blog':
+					wp_enqueue_style( 'blog', OCEANWP_CSS_DIR_URI .'/pages/blog.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case '/programs':
+					wp_enqueue_style( 'resources-template', OCEANWP_CSS_DIR_URI .'/resources-template.css', false, OCEANWP_THEME_VERSION );
+					wp_enqueue_style( 'programs', OCEANWP_CSS_DIR_URI .'/pages/programs.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case '/funding':
+					wp_enqueue_style( 'resources-template', OCEANWP_CSS_DIR_URI .'/resources-template.css', false, OCEANWP_THEME_VERSION );
+					wp_enqueue_style( 'funding', OCEANWP_CSS_DIR_URI .'/pages/funding.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case '/opportunities':
+					wp_enqueue_style( 'resources-template', OCEANWP_CSS_DIR_URI .'/resources-template.css', false, OCEANWP_THEME_VERSION );
+					wp_enqueue_style( 'opportunities', OCEANWP_CSS_DIR_URI .'/pages/opportunities.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case '/u-might-like':
+				wp_enqueue_style( 'u-might-like', OCEANWP_CSS_DIR_URI .'/pages/u-might-like.css', false, OCEANWP_THEME_VERSION );
+				break;
+			case '/u-might-like-some-more-information':
+				wp_enqueue_style( 'u-might-like-some-more-information', OCEANWP_CSS_DIR_URI .'/pages/u-might-like-some-more-information.css', false, OCEANWP_THEME_VERSION );
+				break;
+			case '/my-account':
+				wp_enqueue_style( 'my-account', OCEANWP_CSS_DIR_URI .'/pages/my-account.css', false, OCEANWP_THEME_VERSION );
+				break;
+			case (preg_match('/opportunities\/[az]*/i', $uri) == 1):
+					wp_enqueue_style( 'single-resource', OCEANWP_CSS_DIR_URI .'/single-resource.css', false, OCEANWP_THEME_VERSION );
+					wp_enqueue_style( 'opportunity-single', OCEANWP_CSS_DIR_URI .'/pages/opportunity-single.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case (preg_match('/funding\/[az]*/i', $uri) == 1):
+					wp_enqueue_style( 'single-resource', OCEANWP_CSS_DIR_URI .'/single-resource.css', false, OCEANWP_THEME_VERSION );
+					wp_enqueue_style( 'funding-single', OCEANWP_CSS_DIR_URI .'/pages/funding-single.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case (preg_match('/programs\/[az]*/i', $uri) == 1):
+					wp_enqueue_style( 'single-resource', OCEANWP_CSS_DIR_URI .'/single-resource.css', false, OCEANWP_THEME_VERSION );
+					wp_enqueue_style( 'program-single', OCEANWP_CSS_DIR_URI .'/pages/program-single.css', false, OCEANWP_THEME_VERSION );
+					break;
+			case (preg_match('/blog\/[az]*/i', $uri) == 1):
+					wp_enqueue_style( 'blog', OCEANWP_CSS_DIR_URI .'/pages/blog.css', false, OCEANWP_THEME_VERSION );
+					wp_enqueue_style( 'blog-single', OCEANWP_CSS_DIR_URI .'/pages/blog-single.css', false, OCEANWP_THEME_VERSION );
+					break;
+			default:
+					break;
 		}
-
-		// Get mobile menu icon style
-		$mobileMenu = get_theme_mod( 'ocean_mobile_menu_open_hamburger', 'default' );
-
-		// Enqueue mobile menu icon style
-		if ( ! empty( $mobileMenu ) && 'default' != $mobileMenu ) {
-			wp_enqueue_style( 'oceanwp-hamburgers' );
-			wp_enqueue_style( 'oceanwp-'. $mobileMenu .'' );
-		}
-
-		// If Vertical header style
-		if ( 'vertical' == oceanwp_header_style() ) {
-			wp_enqueue_style( 'oceanwp-hamburgers' );
-			wp_enqueue_style( 'oceanwp-spin' );
-		}
-
-		$template = basename(get_page_template_slug(get_the_ID()));
-		$directory = get_template_directory();
-	    $directoryUrl = get_template_directory_uri();
-	    $customCss = '/assets/css/custom.css';
-	    $eventCss = '/assets/css/template-event.css';
-	   
-	    if(file_exists($directory.$customCss)){
-	    	// Custom custom.css File
-			wp_enqueue_style('oceanwp-style-custom',$directoryUrl.$customCss.'?v='.filemtime($directory.$customCss),array(),null,'all');
-	    }
-
-	    if($template === 'event.php' && file_exists($directory.$eventCss)){
-	    	wp_enqueue_style('oceanwp-style-event',$directoryUrl.$eventCss.'?v='.filemtime($directory.$eventCss),array(),null,'all');
-	    }
 	}
 
 	/**

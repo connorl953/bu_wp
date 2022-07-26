@@ -227,20 +227,16 @@ if(addToFavourites){
 		var thisNode = this;
 		var isLogged = parseInt(thisNode.getAttribute('data-user'));
 		var id = thisNode.getAttribute('data-id');
-
-		bodyTag.className = bodyTag.className.indexOf('display-modal') === -1 ? bodyTag.className + ' display-modal' : bodyTag.className.replace(' display-modal','');
-
-		var icon = document.createElement('i');
+		var favourite = parseInt(thisNode.getAttribute('data-favourite'));		
 		
-		modal.className += ' loading';
-		icon.className = 'fas fa-spinner fa-pulse';
-		modal.lastElementChild.lastElementChild.appendChild(icon);
-		
-		if(isLogged > 0){
-			addFavourite(id);
+		if(isLogged > 0){			
+			if(favourite === 0) {
+				showModalSpinner();
+				addFavourite(id);
+			}			
 		}else{
+			showModalSpinner();
 			var xhttp = new XMLHttpRequest();
-
 			xhttp.onreadystatechange = function(){
 				if(xhttp.readyState == 4){
 					if(xhttp.status === 200){
@@ -395,6 +391,7 @@ if(paymentModal){
 
 		paymentForm.updatePaymentIntent = function(_payment){
 			var form = this;
+			console.log("updatePaymentIntent", form);
 			var validation = form.validateForm();
 
 			if(validation){
@@ -425,7 +422,7 @@ if(paymentModal){
 		                    		form.processPayment();
 		                    	}
 		                    }else{
-		                    	alert('There was an error, please contact us!');
+		                    	alert('There was an error, please contact us! Code Error: 428');
 		                    }
 		                }else{
 		                    throw 'invalid HTTP request: ' + xhttp.status + ' response';
@@ -486,7 +483,7 @@ if(paymentModal){
 		        	xhttp.send(formData);
 
 			    }else{
-			    	var error = result.error && result.error.message ? result.error.message : 'There was an error, please try again or contact us!';
+			    	var error = result.error && result.error.message ? result.error.message : 'There was an error, please try again or contact us! Error Code: 490';
 			    	
 			    	setTimeout(function(){
 		    			paymentForm.alertNotice(error);
@@ -578,6 +575,14 @@ function updateHours(_node,_hours){
 			updateHours(nextSection,newTotal)
 		}
 	}
+}
+
+function showModalSpinner(){
+	bodyTag.className = bodyTag.className.indexOf('display-modal') === -1 ? bodyTag.className + ' display-modal' : bodyTag.className.replace(' display-modal','');
+	var icon = document.createElement('i');		
+	modal.className += ' loading';
+	icon.className = 'fas fa-spinner fa-pulse';
+	modal.lastElementChild.lastElementChild.appendChild(icon);
 }
 
 
@@ -821,7 +826,7 @@ function resetPassword(_form){
 					    	btn.disabled = true;
 					    	alert('Password has been reset!');
 					    }else{
-					    	var error = response.error ? response.error : 'There was an error, please contact us!';
+					    	var error = response.error ? response.error : 'There was an error, please contact us! Error Code: 824';
 					    	alert(error);
 					    }
 					}else{
@@ -940,7 +945,7 @@ function submitIndividualForm(_form){
 					                    	btn.innerText = 'Thank you';
 					                    	btn.disabled = true;
 					                    }else{
-					                    	var error = response.error ? response.error : 'There was an error, please contact us!';
+					                    	var error = response.error ? response.error : 'There was an error, please contact us! Error Code: 943';
 
 					                    	btn.innerText = 'Submit';
 					                    	btn.removeAttribute('disabled');
@@ -955,7 +960,7 @@ function submitIndividualForm(_form){
 					        xhttp.open(_form.getAttribute('method'),_form.getAttribute('action'),true);
 				        	xhttp.send(formData);
 					    }else{
-					    	var error = result.error && result.error.message ? result.error.message : 'There was an error, please try again or contact us!';
+					    	var error = result.error && result.error.message ? result.error.message : 'There was an error, please try again or contact us! Error Code: 959';
 
 					    	btn.removeAttribute('disabled');
 							btn.innerText = 'Submit';
@@ -984,7 +989,7 @@ function submitIndividualForm(_form){
 			                    	btn.innerText = 'Thank you';
 			                    	btn.disabled = true;
 			                    }else{
-			                    	var error = response.error ? response.error : 'There was an error, please contact us!';
+			                    	var error = response.error ? response.error : 'There was an error, please contact us! Error Code: 988';
 
 			                    	btn.innerText = 'Submit';
 					                btn.removeAttribute('disabled');
@@ -1144,7 +1149,7 @@ function submitDonateForm(_form){
 				                    	btn.innerText = 'Thank you';
 				                    	btn.disabled = true;
 				                    }else{
-				                    	var error = response.error ? response.error : 'There was an error, please contact us!';
+				                    	var error = response.error ? response.error : 'There was an error, please contact us! Error Code: 1147';
 
 				                    	btn.innerText = 'Submit';
 				                    	btn.removeAttribute('disabled');
@@ -1159,7 +1164,7 @@ function submitDonateForm(_form){
 				        xhttp.open(_form.getAttribute('method'),_form.getAttribute('action'),true);
 			        	xhttp.send(formData);
 				    }else{
-				    	var error = result.error && result.error.message ? result.error.message : 'There was an error, please try again or contact us!';
+				    	var error = result.error && result.error.message ? result.error.message : 'There was an error, please try again or contact us! Error Code: 1163';
 				    	
 				    	setTimeout(function(){
 			    			alert(error);
@@ -1236,7 +1241,7 @@ function submitBusinessForm(_form){
                     	btn.innerText = 'Thank you';
                     	btn.disabled = true;
                     }else{
-                    	var error = response.error ? response.error : 'There was an error, please contact us!';
+                    	var error = response.error ? response.error : 'There was an error, please contact us! Error Code: 1239';
 
                     	btn.innerText = 'Submit';
 		                btn.removeAttribute('disabled');
@@ -1254,129 +1259,6 @@ function submitBusinessForm(_form){
 
 	return false;
 }
-
-/*function submitBusinessForm(_form){
-	var formValidate = validateForm(_form);
-
-	if(formValidate){
-		var donateAmount = _form.querySelector('input[name="donate"]');
-		var donateItem = _form.querySelector('input[name="donate_item"]');
-		var submitBtn = _form.querySelector('button');
-
-		if(submitBtn){
-			submitBtn.innerText = 'Please wait...';
-			submitBtn.disabled = true;
-		}
-
-		if(donateAmount.value !== '' || donateItem.checked){
-			if(donateAmount.value){
-				var cardholderName = _form.querySelector('input[name="cc_name"]').value;
-				var cardholderEmail = _form.querySelector('input[name="email"]').value;
-				var clientSecret = _form.querySelector('#stripe-form').getAttribute('data-secret');
-
-				if(!cardholderName){
-					cardholderName = _form.querySelector('input[name="first_name"]').value + ' ' + _form.querySelector('input[name="last_name"]').value;
-				}
-
-				stripe.handleCardPayment(
-				    clientSecret, cardElement, {
-				      	payment_method_data: {
-				        	billing_details: {
-				        		name: cardholderName,
-				        		email: cardholderEmail
-				        	}
-				      	}
-				    }
-				).then(function(result){
-				    if(result.paymentIntent){
-				    	var paymentIntent = document.createElement('input');    	
-
-		        		paymentIntent.setAttribute('name','payment_intent');
-		        		paymentIntent.setAttribute('type','hidden');
-		        		paymentIntent.value = result.paymentIntent.id;
-		        		_form.appendChild(paymentIntent);
-
-		        		var formData = new FormData(_form);
-		        		var xhttp = new XMLHttpRequest();
-
-		        		xhttp.onreadystatechange = function(){
-				            if(xhttp.readyState == 4){
-				                if(xhttp.status === 200){
-				                    try{
-				                        var response = JSON.parse(xhttp.response)
-				                    }catch(e){
-				                        var response = xhttp.response; 
-				                    }
-				                    
-				                    if(response.success){
-				                    	var btn = _form.querySelector('button');
-
-				                    	btn.innerText = 'Thank you';
-				                    	btn.disabled = true;
-				                    }else{
-				                    	var error = response.error ? response.error : 'There was an error, please contact us!';
-
-				                    	btn.innerText = 'Submit';
-				                    	btn.removeAttribute('disabled');
-				                    	alert(error);
-				                    }
-				                }else{
-				                    throw 'invalid HTTP request: ' + xhttp.status + ' response';
-				                }
-				            }
-				        };
-
-				        xhttp.open(_form.getAttribute('method'),_form.getAttribute('action'),true);
-			        	xhttp.send(formData);
-				    }else{
-				    	var error = result.error && result.error.message ? result.error.message : 'There was an error, please try again or contact us!';
-				    	
-				    	setTimeout(function(){
-			    			alert(error);
-			    		},250);
-				    }
-				});
-			}else{
-				var formData = new FormData(_form);
-        		var xhttp = new XMLHttpRequest();
-
-        		xhttp.onreadystatechange = function(){
-		            if(xhttp.readyState == 4){
-		                if(xhttp.status === 200){
-		                    try{
-		                        var response = JSON.parse(xhttp.response)
-		                    }catch(e){
-		                        var response = xhttp.response; 
-		                    }
-		                    
-		                    if(response.success){
-		                    	var btn = _form.querySelector('button');
-
-		                    	btn.innerText = 'Thank you';
-		                    	btn.disabled = true;
-		                    }else{
-		                    	var error = response.error ? response.error : 'There was an error, please contact us!';
-
-		                    	btn.innerText = 'Submit';
-				                btn.removeAttribute('disabled');
-		                    	alert(error);
-		                    }
-		                }else{
-		                    throw 'invalid HTTP request: ' + xhttp.status + ' response';
-		                }
-		            }
-		        };
-
-		        xhttp.open(_form.getAttribute('method'),_form.getAttribute('action'),true);
-	        	xhttp.send(formData);
-			}
-		}else{
-			alert('Please select a donation amount or donation item!');
-		}
-	}
-
-	return false;
-}*/
 
 function submitForm(_form){
 	var formValidate = validateForm(_form);
