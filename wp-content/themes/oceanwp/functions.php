@@ -2597,7 +2597,6 @@ final class OCEANWP_Theme_Class {
     wp_enqueue_style( 'oceanwp-style', OCEANWP_CSS_DIR_URI .'style.min.css', false, OCEANWP_THEME_VERSION );
     wp_enqueue_style( 'building-u', OCEANWP_CSS_DIR_URI .'building-u.css', false, OCEANWP_THEME_VERSION );
 
-		echo $uri . PHP_EOL;
 		switch ($uri) {
 			case '/' :
 					wp_enqueue_style( 'homepage', OCEANWP_CSS_DIR_URI .'/pages/homepage.css', false, OCEANWP_THEME_VERSION );
@@ -2637,6 +2636,9 @@ final class OCEANWP_Theme_Class {
 				break;
 			case '/my-account':
 				wp_enqueue_style( 'my-account', OCEANWP_CSS_DIR_URI .'/pages/my-account.css', false, OCEANWP_THEME_VERSION );
+				break;
+			case '/event':
+				wp_enqueue_style( 'event', OCEANWP_CSS_DIR_URI .'/pages/event.css', false, OCEANWP_THEME_VERSION );
 				break;
 			case (preg_match('/opportunities\/[az]*/i', $uri) == 1):
 					wp_enqueue_style( 'single-resource', OCEANWP_CSS_DIR_URI .'/single-resource.css', false, OCEANWP_THEME_VERSION );
