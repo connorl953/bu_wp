@@ -17,10 +17,11 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                 <div class="initial" id="answer1">
                     <h2 class="question-title">What is $4YT about?</h2>
                     <ul class="answer-points">
-                        <li class="answer_point" data-id="1">$4YT is a free to attend scholarship event for high school students all over the world!</li>
-                        <li class="answer_point hidden" data-id="1">It's for High School Students from EVERYWHERE to explore fun questions posed by</li>
-                        <li class="answer_point hidden" data-id="1">Businesses to win $$$ earn Doubl-U-nes to win prizes</li>
-                        <li class="answer_point hidden" data-id="1">Sign-up for a post event meet-ups to learn more about the businesses</li>
+                        <li class="answer_point" data-id="1">It’s for High School Students from all around the world to:</li>
+                        <li class="answer_point hidden" data-id="1">explore fun questions posed by businesses to win $$$</li>
+                        <li class="answer_point hidden" data-id="1">earn Dubl-U-nes to win prizes</li>
+                        <li class="answer_point hidden" data-id="1">sign-up for post event meet-ups to learn more about businesses</li>
+                        <li class="answer_point hidden" data-id="1">Join our <span class="bubble-discord"><img src="<?php echo $uploadsDir . "Discord.png"; ?>" alt="discord"></span> to learn more and stay updated!</li>
                     </ul>
                 </div>
                 <button class="learn_more learn_more_left dog bubble_right" data-bubble-position="right" data-id="1">
@@ -35,7 +36,8 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                     <ul class="answer-points">
                         <li class="answer_point"  data-id="2">High school students (9-12) from ANYWHERE can attend for FREE!</li>
                         <li class="answer_point hidden" data-id="2">Yes, if you are in grades 9-12 at the time of the contest!</li>
-                        <li class="answer_point hidden" data-id="2">Students Register for FREE and are assigned an anonymous ID# to play</li>
+                        <li class="answer_point hidden" data-id="2">Students Register for FREE and are assigned an ID# to play</li>
+                        <li class="answer_point hidden" data-id="2">Join our <span class="bubble-discord"><img src="<?php echo $uploadsDir . "Discord.png"; ?>" alt="discord"></span> to learn more and stay updated!</li>
                     </ul>
                 </div>
                 <button class="learn_more learn_more_right beaver bubble_left" data-bubble-position="left" data-id="2">
@@ -49,8 +51,9 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                     <h2 class="question-title">When can I attend?</h2>
                     <ul class="answer-points">
                         <li class="answer_point"  data-id="3">The event takes place in November 2022 but registration starts in August 2022!</li>
-                        <li class="answer_point hidden" data-id="3">It starts at 12:01 AM Sat., Nov 19th and goes to 11:59 PM on Sun Nov 20</li>
+                        <li class="answer_point hidden" data-id="3">It starts at 12:01 AM Sat., Nov 19th and goes to 11:59 PM Sun Nov 20</li>
                         <li class="answer_point hidden" data-id="3">Students can drop in and out at any time over the 48 hour event period</li>
+                        <li class="answer_point hidden" data-id="3">Join our <span class="bubble-discord"><img src="<?php echo $uploadsDir . "Discord.png"; ?>" alt="discord"></span> to learn more and stay updated!</li>
                     </ul>
                 </div>
                 <button class="learn_more learn_more_left peacock bubble_right" data-bubble-position="right" data-id="3">
@@ -65,8 +68,9 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                     <ul class="answer-points">
                         <li class="answer_point"  data-id="4">All Students identity info and submissions remain anonymous until prizes are determined</li>
                         <li class="answer_point hidden" data-id="4">Students may submit 1 (and only 1) answer to each business question, but may win multiple $$$ awards</li>
-                        <li class="answer_point hidden" data-id="4">All Student identity info and submissions remain anonymous until prizes are determined</li>
+                        <li class="answer_point hidden" data-id="4">All Student identity info and submissions remain anonymous until prizes are awarded</li>
                         <li class="answer_point hidden" data-id="4">Students have 4 years to use $$(FUN-ding) on anything specific that will help foster success in the future</li>
+                        <li class="answer_point hidden" data-id="4">Join our <span class="bubble-discord"><img src="<?php echo $uploadsDir . "Discord.png"; ?>" alt="discord"></span> to learn more and stay updated!</li>
                     </ul>
                 </div>
                 <button class="learn_more learn_more_right hippo bubble_left" data-bubble-position="left" data-id="4">
@@ -79,12 +83,12 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                 <div class="initial" id="answer5">
                     <h2 class="question-title">What are Dubl-U-nes?</h2>
                     <ul class="answer-points">
-                        <li class="answer_point"  data-id="4">Dubl-U-nes can be used as tickets to enter raffle prizes!</li>
-                        <li class="answer_point hidden  data-id="5">Dubl-U-nes can be used to win different prizes donated by our Raffle Partners</li>
+                        <li class="answer_point"  data-id="5">Dubl-U-nes can be used as tickets to enter raffle prizes!</li>
+                        <li class="answer_point hidden"  data-id="5">Dubl-U-nes can be used to win prizes donated by our Raffle Partners</li>
                         <li class="answer_point hidden" data-id="5">All registered students receive 3 free Dubl-U-nes</li>
                         <li class="answer_point hidden" data-id="5">Students assign their Dubl-U-nes to selected raffle items over the course of the event</li>
                         <li class="answer_point hidden" data-id="5">Students can earn more Dubl-U-nes (once they register for the game) through a variety of social media interactions</li>
-                        <li class="answer_point hidden" data-id="5">Join our Discord to learn more about earning Dubl-U-nes!</li>
+                        <li class="answer_point hidden" data-id="5">Join our <span class="bubble-discord"><img src="<?php echo $uploadsDir . "Discord.png"; ?>" alt="discord"></span> to learn more about earning Dubl-U-nes!</li>
                     </ul>
                 </div>
                 <button class="learn_more learn_more_left goat bubble_right" data-bubble-position="right" data-id="5">
@@ -111,14 +115,14 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
         <section class="cta-section">
             <button class="register-button" disabled>
                 <div class="inner-button">
-                    <span>Register<br/>coming soon</span>
+                    <span>Register<br/>(coming soon)</span>
                 </div>
             </button>
             <div class="discord">
+                <p>Join Our Discord!</p>
                 <a href="https://discord.gg/rCSCTxDQhU" target="_blank">
                     <img src="<?php echo $uploadsDir . "Discord.png"; ?>" alt="discord">
                 </a>
-                <p>Join Our Discord!</p>
             </div>
         </section>
     </div>
