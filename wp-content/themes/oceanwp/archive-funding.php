@@ -115,7 +115,7 @@ $demographicsSelection = '';
 	<div class="container">
 		<div class="row">
 			<div class="col banner">
-				<img src="<?php echo get_template_directory_uri().'/assets/img/funding-programs.jpg'; ?>" alt="" />
+				<img src="<?php echo get_template_directory_uri().'/assets/img/funding-programs.jpg'; ?>" alt="Financial options for students" />
 				<strong>Let’s get acquainted with some funding terminology <a href="../definition/"></a></strong>
 			</div>
 			<div class="col browse">

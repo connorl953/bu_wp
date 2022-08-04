@@ -97,7 +97,7 @@ $locationsSelection = '';
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<img src="<?php echo get_template_directory_uri().'/assets/img/education-programs.png'; ?>" alt="" />
+				<img src="<?php echo get_template_directory_uri().'/assets/img/education-programs.png'; ?>" alt="Educational programs" />
 			</div>
 			<div class="col browse">
 				<strong>Browse By Subject Area</strong>
