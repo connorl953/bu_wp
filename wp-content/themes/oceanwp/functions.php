@@ -124,6 +124,15 @@ final class OCEANWP_Theme_Class {
 		add_action('wp_ajax_nopriv_business_donation', array( 'OCEANWP_Theme_Class','process_business_donation'));
 		add_action('universities_edit_form',array( 'OCEANWP_Theme_Class','edit_universities_custom_fields'));
 		add_action('edited_universities',array( 'OCEANWP_Theme_Class','add_universities_custom_fields_save'));
+		//stripe payment intent
+        add_action('wp_ajax_stripe_payment_intent', array( 'OCEANWP_Theme_Class','getStripePaymentIntent'));
+        add_action('wp_ajax_nopriv_stripe_payment_intent', array( 'OCEANWP_Theme_Class','getStripePaymentIntent'));
+        // business registration payment
+        add_action('wp_ajax_business_registration_payment', array( 'OCEANWP_Theme_Class','processBusinessPayment'));
+        add_action('wp_ajax_nopriv_business_registration_payment', array( 'OCEANWP_Theme_Class','processBusinessPayment'));
+        // business form persistence
+        add_action('wp_ajax_business_form_save', array( 'OCEANWP_Theme_Class','saveBusinessForm'));
+        add_action('wp_ajax_nopriv_business_form_save', array( 'OCEANWP_Theme_Class','saveBusinessForm'));
 
 		add_action('wp_ajax_contribute_form', array( 'OCEANWP_Theme_Class','process_contribute_form'));
 		add_action('wp_ajax_nopriv_contribute_form', array( 'OCEANWP_Theme_Class','process_contribute_form'));
@@ -560,13 +569,13 @@ final class OCEANWP_Theme_Class {
 		define( 'OCEANWP_INC_DIR', OCEANWP_THEME_DIR .'/inc/' );
 		define( 'OCEANWP_INC_DIR_URI', OCEANWP_THEME_URI .'/inc/' );
 
-		// Include Paths
+		// stripe live keys
 		define( 'BUILDING_U_STRIPE_KEY_PUBLIC', 'pk_live_CW63DxmeInyq8DinWKN6bmMh005NZl66X1');
-		define( 'BUILDING_U_STRIPE_KEY_SECRET', 'sk_live_VPJdtm1Cu8Sp9z6HkzXy0D3300pnsxQ2MZ');
+        define( 'BUILDING_U_STRIPE_KEY_SECRET', 'sk_live_VPJdtm1Cu8Sp9z6HkzXy0D3300pnsxQ2MZ');
 
-		//test
-		/*define( 'BUILDING_U_STRIPE_KEY_PUBLIC', 'pk_test_5A2paP2uCJ7PYlRLWZXOqGZv00sfNNPTPg');
-		define( 'BUILDING_U_STRIPE_KEY_SECRET', 'sk_test_ADmO4uXEOBmwNZFFbLsnMduq00TDMSZrJD');*/
+		// stripe test keys
+		//define( 'BUILDING_U_STRIPE_KEY_PUBLIC', 'pk_test_5A2paP2uCJ7PYlRLWZXOqGZv00sfNNPTPg');
+		//define( 'BUILDING_U_STRIPE_KEY_SECRET', 'sk_test_ADmO4uXEOBmwNZFFbLsnMduq00TDMSZrJD');
 
 		// Check if plugins are active
 		define( 'OCEAN_EXTRA_ACTIVE', class_exists( 'Ocean_Extra' ) );
@@ -707,6 +716,128 @@ final class OCEANWP_Theme_Class {
 	    print(json_encode($response));
 	    wp_die();
 	}
+
+    /**
+     * Method will create a payment intent based on amount
+     * added: feat/business-registration
+     */
+    public function getStripePaymentIntent() {
+        $amount = $_POST['stripe_amount'] ??  null;
+        $response = ['success'=>false];
+
+        // amount validation
+        if(!$amount) {
+            $response['error_message'] = "No amount set";
+            exit(json_encode($response));
+        }
+
+        require_once( __DIR__ . '/vendor/autoload.php');
+        \Stripe\Stripe::setApiKey(BUILDING_U_STRIPE_KEY_SECRET);
+        try {
+            $payment_intent = \Stripe\PaymentIntent::create([
+                'amount' => ($amount * 100),
+                'currency' => 'USD',
+                'receipt_email' => $_POST['email'],
+            ]);
+            $response['success'] = true;
+            $response['intent'] = $payment_intent->id;
+            $response['secret'] = $payment_intent->client_secret;
+            exit(json_encode($response));
+        }catch (Exception $e) {
+            $response['error_message'] = $e->getMessage();
+            exit(json_encode($response));
+        }
+    }
+
+    public function processBusinessPayment() {
+        $paymentIntent = $_POST['payment_intent'] ?? null;
+        $response = ['success'=>false];
+
+        // payment intent validation
+        if(!$paymentIntent) {
+            $response['error_message'] = "No payment intent set";
+            exit(json_encode($response));
+        }
+        require_once( __DIR__ . '/vendor/autoload.php');
+        \Stripe\Stripe::setApiKey(BUILDING_U_STRIPE_KEY_SECRET);
+        try {
+            $metaData = ['metadata'=>['business_name'=>$_POST['businessName']]];
+            $intent = \Stripe\PaymentIntent::retrieve($paymentIntent);
+            if($intent) {
+                $updatedIntent = \Stripe\PaymentIntent::update($paymentIntent,$metaData);
+                $response['success'] = true;
+                $response['data'] = $updatedIntent;
+                exit(json_encode($response));
+            } else {
+                $response['error_message'] = 'Intent not found';
+                exit(json_encode($response));
+            }
+        }catch(Exception $e){
+            $response['error_message'] = $e->getMessage();
+            exit(json_encode($response));
+        }
+    }
+
+    public function saveBusinessForm() {
+        $response = ['success'=>false];
+        $business_form = array(
+            'ID' => '',
+            'post_type' => 'business_form',
+            'post_status' => 'publish',
+            'first_name' =>  $_POST['first_name'],
+            'last_name' => $_POST['last_name'],
+            'business_name' => $_POST['business_name'],
+            'country' => $_POST['country'],
+            'email' => $_POST['email'],
+            'phone' => $_POST['phone'],
+            'sponsor_partner' => $_POST['sponsor_partner'],
+            'sponsor_plan' => $_POST['sponsor_plan'],
+            'event_partner' => $_POST['event_partner'],
+            'event_invited' => $_POST['event_invited'],
+            'raffle_partner' => $_POST['raffle_partner'],
+            'status' => $_POST['status']
+        );
+
+        $post_id = wp_insert_post($business_form);
+        if($post_id) {
+            update_field( 'field_630257c8e2fd0', $business_form['first_name'], $post_id );
+            update_field( 'field_630257dee2fd1', $business_form['last_name'], $post_id );
+            update_field( 'field_630257f9e2fd2', $business_form['business_name'], $post_id );
+            update_field( 'field_6302580de2fd3', $business_form['country'], $post_id );
+            update_field( 'field_6302581ee2fd4', $business_form['email'], $post_id );
+            update_field( 'field_63025828e2fd5', $business_form['phone'], $post_id );
+            update_field( 'field_63025835e2fd6', $business_form['sponsor_partner'], $post_id );
+            $sponsor_plan = null;
+            switch ($business_form['sponsor_plan']) {
+                case "5000":
+                    $sponsor_plan = 4;
+                    break;
+                case "2700":
+                    $sponsor_plan = 3;
+                    break;
+                case "1400":
+                    $sponsor_plan = 2;
+                    break;
+                case "500":
+                    $sponsor_plan = 1;
+                    break;
+                case "0":
+                    $sponsor_plan = 5;
+                    break;
+                default:
+                    break;
+            }
+            update_field( 'field_63025853e2fd7', $sponsor_plan, $post_id );
+            update_field( 'field_63025893e2fd8', $business_form['event_partner'], $post_id );
+            update_field( 'field_630258afe2fd9', $business_form['event_invited'], $post_id );
+            update_field( 'field_630258cde2fda', $business_form['raffle_partner'], $post_id );
+            update_field( 'field_630258e1e2fdb', $business_form['status'], $post_id );
+            $response['sucess'] = true;
+            $response['business_form_id'] = $post_id;
+            exit(json_encode($response));
+        }
+        exit(json_encode($response));
+    }
 
 	/**
 	 * 
@@ -2203,7 +2334,56 @@ final class OCEANWP_Theme_Class {
 	    register_post_type('perspectives', $news_args);
 	    flush_rewrite_rules();
 
-	    if(!post_type_exists('features')){
+	    /* CustomType: BusinessForm*/
+        $business_form_labels = array(
+            'name' => __('Business Forms'),
+            'singular_name' => __('Business Form'),
+            'add_new' => __('Add Business Form'),
+            'add_new_item' => __('Add Business Form'),
+            'edit_item' => __('Edit Business Form'),
+            'new_item' => __('New Business Form'),
+            'view_item' => __('View Business Form'),
+            'search_items' => __('Search Business Form'),
+            'not_found' => __('No Business Forms found'),
+            'not_found_in_trash' => __('No Business Forms found in Trash'),
+            'parent_item_colon' => '',
+            'menu_name' => __('Business Forms')
+        );
+        $business_form_capabilities = array(
+            'edit_post' => 'edit_post',
+            'edit_posts' => 'edit_posts',
+            'edit_others_posts' => 'edit_others_posts',
+            'publish_posts' => 'publish_posts',
+            'read_post' => 'read_post',
+            'read_private_posts' => 'read_private_posts',
+            'delete_post' => 'delete_post'
+        );
+        $business_form_args = array(
+            'labels'        => $business_form_labels,
+            'capabilities' => $business_form_capabilities,
+            'capability_type' => 'post',
+            'description'   => 'Holds our business form records',
+            'public'        => false,
+            'show_ui' => true,
+            'show_in_menu' => true,
+            'supports'      => array( 'custom_fields' ),
+            'hierarchical' => false,
+            'has_archive'   => false,
+            'menu_icon' => 'dashicons-store',
+            'exclude_from_search' => true,
+            'publicly_queryable' => false,
+            'show_in_rest' => false,
+            'rewrite' => false,
+            'query_var' => true,
+            'can_export' => true,
+            'show_in_nav_menus' => false,
+            'delete_with_user' => false,
+            'map_meta_cap' => true,
+        );
+        register_post_type( 'business_form', $business_form_args );
+        flush_rewrite_rules();
+
+        if(!post_type_exists('features')){
 			/* Leads */
 			$customPostArgs = array(
 		        'labels' => array('name' => __('Features'),'singular_name' => __('Feature'),'add_new' => __('Add Feature'),'add_new_item' => __('Add New Feature'),'edit_item' => __('Edit Feature'),'new_item' => __('New Feature'),'view_item' => __('View Feature'),'search_items' => __('Search Features'),'not_found' => __('No Features found'),'not_found_in_trash' => __('No Features found in Trash'),'parent_item_colon' => '','menu_name' => __('Features')),
@@ -2319,9 +2499,40 @@ final class OCEANWP_Theme_Class {
 		        }
 		    } 
 		    
-		}, 10, 2 );    
+		}, 10, 2 );
 
+        // business_form admin columns headers
+        add_filter('manage_business_form_posts_columns', function($columns) {
+            $columns = [
+                'cb' => $columns['cb'],
+                'first_name' => __('First Name'),
+                'last_name' => __('Last Name'),
+                'business_name' => __('Business Name'),
+                'status' => __('Status'),
+                'date' => __( 'Date' )
+            ];
+            return $columns;
+        });
 
+        // business_form admin columns data
+        add_action('manage_business_form_posts_custom_column', function($column, $post_id) {
+           switch ($column) {
+               case "first_name":
+                   echo get_post_meta($post_id, 'first_name',true);
+                   break;
+               case "last_name":
+                   echo get_post_meta($post_id, 'last_name',true);
+                   break;
+               case "business_name":
+                   echo get_post_meta($post_id, 'business_name',true);
+                   break;
+               case "status":
+                   echo get_post_meta($post_id, 'status',true);
+                   break;
+               default:
+                   break;
+           }
+        }, 10, 2);
 	}
 
 	/**
@@ -2640,6 +2851,9 @@ final class OCEANWP_Theme_Class {
 			case '/event':
 				wp_enqueue_style( 'event', OCEANWP_CSS_DIR_URI .'/pages/event.css', false, OCEANWP_THEME_VERSION );
 				break;
+            case '/business-registration':
+                wp_enqueue_style( 'business-registration', OCEANWP_CSS_DIR_URI .'/pages/business-registration.css', false, OCEANWP_THEME_VERSION );
+                break;
 			case (preg_match('/opportunities\/[az]*/i', $uri) == 1):
 					wp_enqueue_style( 'single-resource', OCEANWP_CSS_DIR_URI .'/single-resource.css', false, OCEANWP_THEME_VERSION );
 					wp_enqueue_style( 'opportunity-single', OCEANWP_CSS_DIR_URI .'/pages/opportunity-single.css', false, OCEANWP_THEME_VERSION );
@@ -2726,6 +2940,16 @@ final class OCEANWP_Theme_Class {
 	    	wp_enqueue_style('mobile-style-jl',$directoryUrl.$mobileJL.'?v='.filemtime($directory.$mobileJL),array(),null,'all');
 	    }
 
+        global $wp;
+        $uri = '/' . add_query_arg(array(), $wp->request);
+
+        switch ($uri) {
+            case '/business-registration' :
+                wp_enqueue_script('business-registration', OCEANWP_JS_DIR_URI . '/pages/business-registration.js', false, OCEANWP_THEME_VERSION);
+                break;
+            default:
+                break;
+        }
 	}
 
 	/**
