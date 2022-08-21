@@ -203,7 +203,7 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                             <input type="radio" name="sponsor-plan" value="1400">
                             <span class="checkmark"></span>
                             <span class="label">
-                  <span>Logo in website footer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</span>
+                  <span>1 social media posts + Logo in website footer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</span>
                   <span>3 mth</span>
                 </span>
                         </label>
@@ -213,7 +213,7 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                             <input type="radio" name="sponsor-plan" value="500">
                             <span class="checkmark"></span>
                             <span class="label">
-                  <span>1 social media posts + Logo in website footer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</span>
+                  <span>Logo in website footer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</span>
                   <span>1 mth</span>
                 </span>
                         </label>
