@@ -150,50 +150,6 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
     <section class="form">
         <form class="business-form" id="business-form" data-stripe-publishable-key="<?php echo BUILDING_U_STRIPE_KEY_PUBLIC; ?>" action="<?php echo admin_url('admin-ajax.php'); ?>">
             <input name="action" type="hidden" value="business-registration" />
-            <hr class="base-line">
-            <div class="form-row">
-                <!-- FIRST NAME -->
-                <div class="form-input col-6">
-                    <label for="firstName" class="form-label">First Name</label>
-                    <input type="text" name="firstName " id="firstName" class="form-control" autocomplete="off">
-                    <div id="firstNameError" class="input-text input-error"></div>
-                </div>
-                <!-- LAST NAME -->
-                <div class="form-input col-6">
-                    <label for="lastName" class="form-label">Last Name</label>
-                    <input type="text" name="lastName " id="lastName" class="form-control" autocomplete="off">
-                    <div id="lastNameError" class="input-text input-error"></div>
-                </div>
-            </div>
-            <div class="form-row">
-                <!-- BUSINESS NAME -->
-                <div class="form-input col-8">
-                    <label for="businessName" class="form-label">Business Name</label>
-                    <input type="text" name="businessName " id="businessName" class="form-control" autocomplete="off">
-                    <div id="businessNameError" class="input-text input-error"></div>
-                </div>
-                <!-- COUNTRY -->
-                <div class="form-input col-4">
-                    <label for="country" class="form-label">Country</label>
-                    <input type="text" name="country " id="country" class="form-control" autocomplete="off">
-                    <div id="countryError" class="input-text input-error"></div>
-                </div>
-            </div>
-            <div class="form-row">
-                <!-- EMAIL -->
-                <div class="form-input col-8">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" name="email " id="email" class="form-control" autocomplete="off">
-                    <div id="emailError" class="input-text input-error"></div>
-                </div>
-                <!-- PHONE -->
-                <div class="form-input col-4">
-                    <label for="phone" class="form-label">Phone</label>
-                    <input type="text" name="phone " id="phone" class="form-control" autocomplete="off">
-                    <div id="phoneError" class="input-text input-error"></div>
-                </div>
-            </div>
-            <hr class="base-line">
             <!-- SPONSOR SECTION -->
             <div class="sponsor-form" id="sponsor-form">
                 <hr class="sponsor-line">
@@ -227,7 +183,7 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                             <input type="radio" name="sponsor-plan" value="5000">
                             <span class="checkmark"></span>
                             <span class="label">
-                  <span>3 social media posts + 24 email campaigns footers + $4YT sponsor island + Logo in website footer . . . . . . </span>
+                  <span>3 social media posts + 24 email campaigns footers + $4YT sponsor island + Logo in website footer</span>
                   <span>12 mth</span>
                 </span>
                         </label>
@@ -237,7 +193,7 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                             <input type="radio" name="sponsor-plan" value="2700">
                             <span class="checkmark"></span>
                             <span class="label">
-                  <span>2 social media posts + 6 email campaigns footers + Logo in website footer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</span>
+                  <span>2 social media posts + 6 email campaigns footers + Logo in website footer . . . . . . . . . . . . . . . . . . . . . . .</span>
                   <span>6 mth</span>
                 </span>
                         </label>
@@ -247,7 +203,7 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                             <input type="radio" name="sponsor-plan" value="1400">
                             <span class="checkmark"></span>
                             <span class="label">
-                  <span>Logo in website footer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</span>
+                  <span>Logo in website footer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</span>
                   <span>3 mth</span>
                 </span>
                         </label>
@@ -257,7 +213,7 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                             <input type="radio" name="sponsor-plan" value="500">
                             <span class="checkmark"></span>
                             <span class="label">
-                  <span>1 social media posts + Logo in website footer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</span>
+                  <span>1 social media posts + Logo in website footer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</span>
                   <span>1 mth</span>
                 </span>
                         </label>
@@ -373,6 +329,50 @@ $uploadsDir = wp_upload_dir()['baseurl'] . "/";
                 </div>
                 <hr class="raffle-line">
             </div>
+            <hr class="base-line">
+            <div class="form-row">
+                <!-- FIRST NAME -->
+                <div class="form-input col-6">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" name="firstName " id="firstName" class="form-control" autocomplete="off">
+                    <div id="firstNameError" class="input-text input-error"></div>
+                </div>
+                <!-- LAST NAME -->
+                <div class="form-input col-6">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" name="lastName " id="lastName" class="form-control" autocomplete="off">
+                    <div id="lastNameError" class="input-text input-error"></div>
+                </div>
+            </div>
+            <div class="form-row">
+                <!-- BUSINESS NAME -->
+                <div class="form-input col-8">
+                    <label for="businessName" class="form-label">Business Name</label>
+                    <input type="text" name="businessName " id="businessName" class="form-control" autocomplete="off">
+                    <div id="businessNameError" class="input-text input-error"></div>
+                </div>
+                <!-- COUNTRY -->
+                <div class="form-input col-4">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" name="country " id="country" class="form-control" autocomplete="off">
+                    <div id="countryError" class="input-text input-error"></div>
+                </div>
+            </div>
+            <div class="form-row">
+                <!-- EMAIL -->
+                <div class="form-input col-8">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" name="email " id="email" class="form-control" autocomplete="off">
+                    <div id="emailError" class="input-text input-error"></div>
+                </div>
+                <!-- PHONE -->
+                <div class="form-input col-4">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="text" name="phone " id="phone" class="form-control" autocomplete="off">
+                    <div id="phoneError" class="input-text input-error"></div>
+                </div>
+            </div>
+            <hr class="base-line">
             <div class="form-input submit">
                 <button id="btn-submit" data-stripe="false">
                     <span id="submit-main">Submit</span>
