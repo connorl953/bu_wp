@@ -666,7 +666,7 @@ input[type=text]:focus {
     color: var(--font-primary);
 }
 
-.note-error {
+.note-error, .note-error p {
     background-color: var(--form-error);
     color: white;
 }
