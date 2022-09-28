@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 get_header();
 
@@ -60,7 +60,7 @@ foreach($programs as $key => $value) {
 	$listingTitle = get_post_meta($value -> ID,'_listing_title',true);
 	$postTerms = wp_get_post_terms($value -> ID,'timeframe');
 	$postTimeframes = [];
-	
+
 	foreach($postTerms as $key => $postTerm){
 		array_push($postTimeframes,$postTerm -> term_id);
 	}
@@ -70,7 +70,7 @@ foreach($programs as $key => $value) {
 	}
 
 	$listingSmallTitle = get_post_meta($value -> ID,'_listing_small_title',true);
-	
+
 	if($listingSmallTitle){
 		$value -> listing_small_title = $listingSmallTitle;
 	}
@@ -99,11 +99,11 @@ foreach($programs as $key => $value) {
 				$typesList[$resourceType -> term_id] = $resourceType;
 			}
 
-			array_push($value -> icons,$typesList[$resourceType -> term_id]); 
+			array_push($value -> icons,$typesList[$resourceType -> term_id]);
 		}
 
 		$primaryType = $type[0];
-		
+
 		if(!array_key_exists($primaryType -> term_id,$typesList)){
 			$primaryType -> icon = get_term_meta($primaryType->term_id,'taxonomy_icon',true);
 
@@ -134,7 +134,7 @@ $seasonsSelection = '';
 				<ul>
 					<?php foreach($timeframes as $key => $timeframe){
 						$label = get_term_meta($timeframe->term_id,'_taxonomy_label',true);
-						
+
 						if($label){
 
 					?><li><a href="#<?php echo $timeframe -> slug ?>"><?php echo $label ?></a></li><?php
@@ -142,24 +142,35 @@ $seasonsSelection = '';
 					} ?>
 				</ul>
 			</div>
+
 			<div class="col filters">
-				<strong>Filters</strong>
+			<strong>Search</strong>
+			   <div class="input-group">
+                 <span class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                 </span>
+                 <input type="search" class="form-control" placeholder="Search" aria-label="Search"/>
+               </div>
+			<strong>Filters</strong>
+
 				<ul>
+
+
 					<li>Locations
 						<ul>
-						<?php foreach($locations as $key => $location){ 
+						<?php foreach($locations as $key => $location){
 							if(!$locationsSelection){
 								$locationsSelection = in_array($location -> term_id,$locationsParams) ? $location -> name : '';
 							}else{
 								$locationsSelection .= in_array($location -> term_id,$locationsParams) ? ','.$location -> name : '';
 							}
-							
+
 						?><li><input id="location-<?php echo $key ?>" name="location" type="checkbox" value="<?php echo $location -> term_id; ?>" <?php if(in_array($location -> term_id,$locationsParams)){ ?>checked<?php } ?>> <label for="location-<?php echo $key ?>"><?php echo $location -> name; ?></label></li><?php } ?>
 						</ul>
 					</li>
 					<li>Types
 						<ul>
-						<?php foreach($types as $key => $type){ 
+						<?php foreach($types as $key => $type){
 							if(!$typesSelection){
 								$typesSelection = in_array($type -> term_id,$typesParams) ? $type -> name : '';
 							}else{
@@ -170,7 +181,7 @@ $seasonsSelection = '';
 					</li>
 					<li>Seasons
 						<ul class="large">
-						<?php foreach($seasons as $key => $season){ 
+						<?php foreach($seasons as $key => $season){
 							if(!$seasonsSelection){
 								$seasonsSelection = in_array($season -> term_id,$seasonsParams) ? $season -> name : '';
 							}else{
@@ -181,7 +192,16 @@ $seasonsSelection = '';
 					</li>
 				</ul>
 				<p><?php if($locationsSelection){ ?><span>Locations:</span> <?php echo $locationsSelection; ?><br /><?php } ?><?php if($typesSelection){ ?><span>Types:</span> <?php echo $typesSelection; ?><br /><?php } ?><?php if($seasonsSelection){ ?><span>Seasons:</span> <?php echo $seasonsSelection; ?><?php } ?></p>
+
 			</div>
+
+
+
+
+
+
+
+
 			<?php if(count($typesList) > 0){ ?>
 			<div class="icon-types">
 				<ul>
@@ -196,15 +216,15 @@ $seasonsSelection = '';
 				<div class="heading">
 					<span><?php echo $timeframe -> name ?></span>
 				</div>
-				<?php 
+				<?php
 
 				$programs = $timeframe -> posts;
 				$columns = [[],[],[],[],[],[],[]];
-        $count = 0;        
-          
-				foreach($programs as $index => $program){ 
+        $count = 0;
+
+				foreach($programs as $index => $program){
 					array_push($columns[$count],$program);
-					
+
 					$count++;
 
 					if($count > 6){
@@ -217,15 +237,15 @@ $seasonsSelection = '';
 					<?php foreach($programs as $program){  ?>
 					<div class="bubble">
 						<div>
-							<?php 
-							if($program -> icons){ 	
+							<?php
+							if($program -> icons){
 								$count = 1;
 
 								$icon_count = 0;
 								foreach($program -> icons as $icon){ ?>
 							<img src="<?php echo $icon -> icon; ?>" class="icon-<?php echo $count; ?>" alt="" style=" <?php if($icon_count==0 && count($program -> icons) == 2) echo "left: 35px;"?>"/>
 								<?php $count++;$icon_count++; };
-								
+
 							} ?>
 							<strong><?php echo $program -> listing_title ?></strong>
 							<?php if($program -> listing_small_title){ ?><small><?php echo $program -> listing_small_title ?></small><?php } ?>
@@ -234,7 +254,7 @@ $seasonsSelection = '';
 					</div>
 					<?php } ?>
 				</div>
-				<?php 
+				<?php
 				}
 
 				?>
@@ -248,16 +268,16 @@ $seasonsSelection = '';
 					<span><?php echo $timeframe -> name ?></span>
           <i class="<?php echo $table_num == 1 ? "fas fa-angle-up" : "fas fa-angle-down"; ?>" id = "drop-down-arrow" style = "color: #48cdff;"></i>
 				</div>
-				<?php 
+				<?php
 
 				$programs = $timeframe -> posts;
 				$columns = [[],[],[]];
 
-				$count = 0;        
+				$count = 0;
 
-				foreach($programs as $index => $program){ 
+				foreach($programs as $index => $program){
 					array_push($columns[$count],$program);
-					
+
 					$count++;
 
 					if($count > 2){
@@ -270,14 +290,14 @@ $seasonsSelection = '';
 					<?php foreach($programs as $program){  ?>
 					<div class="bubble">
 						<div>
-							<?php 
-							if($program -> icons){ 	
+							<?php
+							if($program -> icons){
 								$count = 1;
 
 								foreach($program -> icons as $icon){ ?>
 							<img src="<?php echo $icon -> icon; ?>" class="icon-<?php echo $count; ?>" alt="" />
 								<?php $count++; };
-								
+
 							} ?>
 							<strong><?php echo $program -> listing_title ?></strong>
 							<?php if($program -> listing_small_title){ ?><small><?php echo $program -> listing_small_title ?></small><?php } ?>
@@ -286,7 +306,7 @@ $seasonsSelection = '';
 					</div>
 					<?php } ?>
 				</div>
-				<?php 
+				<?php
 				}
 
 				?>
@@ -297,7 +317,7 @@ $seasonsSelection = '';
 	</div>
 </div>
 
-<?php 
+<?php
 
 };
 

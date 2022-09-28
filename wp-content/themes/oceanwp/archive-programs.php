@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 get_header();
 
@@ -58,7 +58,7 @@ $typeIcons = [];
 
 foreach($programs as $key => $value) {
 	$listingTitle = get_post_meta($value -> ID,'_listing_title',true);
-	
+
 	if($listingTitle){
 		$letter = $listingTitle[0];
 		$value -> listing_title = $listingTitle;
@@ -104,25 +104,32 @@ $locationsSelection = '';
 				<ul>
 					<?php foreach($alpha as $letter => $alphabet){ ?><li><a href="#<?php echo $letter ?>"><?php echo $letter ?></a></li><?php }; ?>
 				</ul>
-			</div>	
+			</div>
 			<div class="col filters">
+			<strong>Search</strong>
+			   <div class="input-group">
+                 <span class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                 </span>
+                 <input type="search" class="form-control" placeholder="Search" aria-label="Search"/>
+               </div>
 				<strong>Filters</strong>
 				<ul>
 					<li>Cost
 						<ul>
-						<?php foreach($costs as $key => $cost){ 
+						<?php foreach($costs as $key => $cost){
 							if(!$costsSelection){
 								$costsSelection = in_array($cost -> term_id,$costsParams) ? $cost -> name : '';
 							}else{
 								$costsSelection .= in_array($cost -> term_id,$costsParams) ? ','.$cost -> name : '';
 							}
-							
+
 						?><li><input id="cost-<?php echo $key ?>" name="costs" type="checkbox" value="<?php echo $cost -> term_id; ?>" <?php if(in_array($cost -> term_id,$costsParams)){ ?>checked<?php } ?>> <label for="cost-<?php echo $key ?>"><?php echo $cost -> name; ?></label></li><?php } ?>
 						</ul>
 					</li>
 					<li>Duration
 						<ul>
-						<?php foreach($durations as $key => $duration){ 
+						<?php foreach($durations as $key => $duration){
 							if(!$durationsSelection){
 								$durationsSelection = in_array($duration -> term_id,$durationsParams) ? $duration -> name : '';
 							}else{
@@ -133,7 +140,7 @@ $locationsSelection = '';
 					</li>
 					<li>Location
 						<ul class="large">
-						<?php foreach($locations as $key => $location){ 
+						<?php foreach($locations as $key => $location){
 							if(!$locationsSelection){
 								$locationsSelection = in_array($location -> term_id,$locationsParams) ? $location -> name : '';
 							}else{
@@ -159,21 +166,21 @@ $locationsSelection = '';
 				<div id="<?php echo $key ?>" class="heading">
 					<span><?php echo $key ?></span>
 				</div>
-				<?php 
+				<?php
 
 				$columns = [[],[],[],[],[],[],[]];
 				$count = 0;
 
-				foreach($value as $index => $program){ 
+				foreach($value as $index => $program){
 					array_push($columns[$count],$program);
-					
+
 					$count++;
 
 					if($count > 6){
 						$count = 0;
 					}
-				} 
-				
+				}
+
 				foreach($columns as $index => $programs){ ?>
 				<div class="column <?php if($index % 2 !== 0 && $index !== 0){ ?>padding<?php echo ' '.$index; } ?>">
 					<?php foreach($programs as $program){ ?>
@@ -186,7 +193,7 @@ $locationsSelection = '';
 					</div>
 					<?php } ?>
 				</div>
-				<?php 
+				<?php
 				}
 
 				?>
@@ -200,21 +207,21 @@ $locationsSelection = '';
 					<span><?php echo $key ?></span>
           <i class="<?php echo $table_num == 1 ? "fas fa-angle-up" : "fas fa-angle-down"; ?>" id = "drop-down-arrow" style = "color: #f1e913;"></i>
 				</div>
-				<?php 
+				<?php
 
 				$columns = [[],[],[]];
 				$count = 0;
 
-				foreach($value as $index => $program){ 
+				foreach($value as $index => $program){
 					array_push($columns[$count],$program);
-					
+
 					$count++;
 
 					if($count > 2){
 						$count = 0;
 					}
-				} 
-				
+				}
+
 				foreach($columns as $index => $programs){ ?>
 				<div style = "<?php echo $table_num == 1 ? "display: inline-block" : "display: none"; ?>" class="column <?php if($index % 2 !== 0 && $index !== 0){ ?>padding<?php echo ' '.$index; } ?>">
 					<?php foreach($programs as $program){ ?>
@@ -227,19 +234,19 @@ $locationsSelection = '';
 					</div>
 					<?php } ?>
 				</div>
-				<?php 
+				<?php
 				}
 
 				?>
 			</div>
-      
+
 			<?php } ?>
 			<!-- Created another set of balls but with 3 columns instead of 7 with drop down window-->
 		</div>
 	</div>
 </div>
 
-<?php 
+<?php
 
 }
 

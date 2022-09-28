@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 get_header();
 
@@ -61,7 +61,7 @@ foreach($programs as $key => $value) {
 	$listingTitle = get_post_meta($value -> ID,'_listing_title',true);
 	$postTerms = wp_get_post_terms($value -> ID,'student-types');
 	$postStudentTypes = [];
-	
+
 	foreach($postTerms as $key => $postTerm){
 		array_push($postStudentTypes,$postTerm -> term_id);
 	}
@@ -71,7 +71,7 @@ foreach($programs as $key => $value) {
 	}
 
 	$listingSmallTitle = get_post_meta($value -> ID,'_listing_small_title',true);
-	
+
 	if($listingSmallTitle){
 		$value -> listing_small_title = $listingSmallTitle;
 	}
@@ -123,7 +123,7 @@ $demographicsSelection = '';
 				<ul>
 					<?php foreach($studentTypes as $key => $studentType){
 						$label = get_term_meta($studentType->term_id,'_taxonomy_label',true);
-						
+
 						if($label){
 
 					?><li><a href="#<?php echo $studentType -> slug ?>"><?php echo $label ?></a></li><?php
@@ -132,23 +132,30 @@ $demographicsSelection = '';
 				</ul>
 			</div>
 			<div class="col filters">
+			<strong>Search</strong>
+			   <div class="input-group">
+                 <span class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                 </span>
+                 <input type="search" class="form-control" placeholder="Search" aria-label="Search"/>
+               </div>
 				<strong>Filters</strong>
 				<ul>
 					<li>School Eligibility
 						<ul>
-						<?php foreach($schoolEligibility as $key => $school){ 
+						<?php foreach($schoolEligibility as $key => $school){
 							if(!$schoolEligibilitySelection){
 								$schoolEligibilitySelection = in_array($school -> term_id,$schoolEligibilityParams) ? $school -> name : '';
 							}else{
 								$schoolEligibilitySelection .= in_array($school -> term_id,$schoolEligibilityParams) ? ','.$school -> name : '';
 							}
-							
+
 						?><li><input id="school-<?php echo $key ?>" name="school" type="checkbox" value="<?php echo $school -> term_id; ?>" <?php if(in_array($school -> term_id,$schoolEligibilityParams)){ ?>checked<?php } ?>> <label for="school-<?php echo $key ?>"><?php echo $school -> name; ?></label></li><?php } ?>
 						</ul>
 					</li>
 					<li>Financial Eligibility
 						<ul>
-						<?php foreach($financialEligibility as $key => $financial){ 
+						<?php foreach($financialEligibility as $key => $financial){
 							if(!$financialEligibilitySelection){
 								$financialEligibilitySelection = in_array($financial -> term_id,$financialEligibilityParams) ? $financial -> name : '';
 							}else{
@@ -159,7 +166,7 @@ $demographicsSelection = '';
 					</li>
 					<li>Demographics
 						<ul class="large">
-						<?php foreach($demographics as $key => $demographic){ 
+						<?php foreach($demographics as $key => $demographic){
 							if(!$demographicsSelection){
 								$demographicsSelection = in_array($demographic -> term_id,$demographicsParams) ? $demographic -> name : '';
 							}else{
@@ -185,15 +192,15 @@ $demographicsSelection = '';
 				<div class="heading">
 					<span><?php echo $studentType -> description ?></span>
 				</div>
-				<?php 
+				<?php
 
 				$programs = $studentType -> posts;
 				$columns = [[],[],[],[],[],[],[]];
 				$count = 0;
 
-				foreach($programs as $index => $program){ 
+				foreach($programs as $index => $program){
 					array_push($columns[$count],$program);
-					
+
 					$count++;
 
 					if($count > 6){
@@ -201,7 +208,7 @@ $demographicsSelection = '';
 					}
 				}
 
-				
+
 
 				foreach($columns as $index => $programs){ ?>
 				<div class="column <?php if($index % 2 !== 0 && $index !== 0){ ?>padding<?php echo ' '.$index; } ?>">
@@ -216,7 +223,7 @@ $demographicsSelection = '';
 					</div>
 					<?php } ?>
 				</div>
-				<?php 
+				<?php
 				}
 
 				?>
@@ -230,15 +237,15 @@ $demographicsSelection = '';
 					<span><?php echo $studentType -> description ?></span>
 					<i class="<?php echo $table_num == 1 ? "fas fa-angle-up" : "fas fa-angle-down"; ?>" id = "drop-down-arrow" style = "color: #94c426;"></i>
 				</div>
-				<?php 
+				<?php
 
 				$programs = $studentType -> posts;
 				$columns = [[],[],[]];
 				$count = 0;
 
-				foreach($programs as $index => $program){ 
+				foreach($programs as $index => $program){
 					array_push($columns[$count],$program);
-					
+
 					$count++;
 
 					if($count > 2){
@@ -259,7 +266,7 @@ $demographicsSelection = '';
 					</div>
 					<?php } ?>
 				</div>
-				<?php 
+				<?php
 				}
 
 				?>
@@ -270,7 +277,7 @@ $demographicsSelection = '';
 	</div>
 </div>
 
-<?php 
+<?php
 
 }
 
