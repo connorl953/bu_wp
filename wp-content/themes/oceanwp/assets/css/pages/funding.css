@@ -133,3 +133,10 @@
 .align-self-end {
     align-self: flex-end !important;
 }
+.bubble strong{
+    z-index:5;
+    text-shadow: 1px 1px black;
+}
+.bubble small {
+    text-shadow: 1px 1px black;
+}

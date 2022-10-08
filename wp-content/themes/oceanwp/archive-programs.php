@@ -54,7 +54,7 @@ if($locationsParams){
 }
 
 $programs = get_posts($args);
-$typeIcons = [];
+$typesList = [];
 
 foreach($programs as $key => $value) {
 	$listingTitle = get_post_meta($value -> ID,'_listing_title',true);
@@ -72,19 +72,31 @@ foreach($programs as $key => $value) {
 
 	$type = wp_get_post_terms($value -> ID,'resource_type');
 
-	if($type){
-		$primaryType = $type[0];
+    if($type){
+        $value -> icons = [];
 
-		if(!array_key_exists($primaryType -> term_id,$typesList)){
-			$primaryType -> icon = get_term_meta($primaryType->term_id,'taxonomy_icon',true);
+        foreach($type as $resourceType){
+            if(!array_key_exists($resourceType -> term_id,$typesList)){
+                $resourceType -> icon = get_term_meta($resourceType->term_id,'taxonomy_icon',true);
 
-			$value -> icon_type = $primaryType -> icon;
+                $typesList[$resourceType -> term_id] = $resourceType;
+            }
 
-			$typesList[$primaryType -> term_id] = $primaryType;
-		}
+            $value->icons[] = $typesList[$resourceType->term_id];
+        }
 
-		$value -> icon_type = array_key_exists($primaryType -> term_id,$typesList) ? $typesList[$primaryType -> term_id] -> icon : null;
-	}
+        $primaryType = $type[0];
+
+        if(!array_key_exists($primaryType -> term_id,$typesList)){
+            $primaryType -> icon = get_term_meta($primaryType->term_id,'taxonomy_icon',true);
+
+            $value -> icon_type = $primaryType -> icon;
+
+            $typesList[$primaryType -> term_id] = $primaryType;
+        }
+
+        $value -> icon_type = array_key_exists($primaryType -> term_id,$typesList) ? $typesList[$primaryType -> term_id] -> icon : null;
+    }
 }
 
 $costsSelection = '';
@@ -181,25 +193,54 @@ $locationsSelection = '';
 					}
 				}
 
-				foreach($columns as $index => $programs){ ?>
-				<div class="column <?php if($index % 2 !== 0 && $index !== 0){ ?>padding<?php echo ' '.$index; } ?>">
-					<?php foreach($programs as $program){ ?>
-					<div class="bubble">
-						<div>
-							<?php if($program -> icon_type){ ?><img src="<?php echo $program -> icon_type; ?>" alt="" /><?php } ?>
-							<strong><?php echo $program -> listing_title ?></strong>
-							<a href="<?php echo get_permalink($program -> ID); ?>"></a>
-						</div>
-					</div>
-					<?php } ?>
-				</div>
-				<?php
-				}
+                foreach($columns as $index => $programs){ ?>
+                    <div class="column <?php if($index % 2 !== 0 && $index !== 0){ ?>padding<?php echo ' '.$index; } ?>">
+                        <?php foreach($programs as $program){  ?>
+                            <div class="bubble" style="margin:40px;">
+                                <div>
+                                    <?php
+                                    if($program -> icons){
 
-				?>
-			</div>
-			<?php } ?>
+                                        $x = 0;
+                                        //$icon_count = count($icon_links); used for testing
+                                        $icon_count = count($program -> icons);
+                                        // foreach($icon_links as $icon){ used for testing
+                                        foreach($program -> icons as $icon){?>
 
+                                            <img src="<?php echo $icon -> icon;?>" class="icon-<?php echo $x+1; ?>" alt="" style="<?php
+                                            if($icon_count > 2){
+                                                switch($x){
+                                                    case 0:
+                                                        echo "top:-20px;";
+                                                        break;
+                                                    case 1:
+                                                        echo "left:95px; top:-5px;";
+                                                        break;
+                                                    case 2:
+                                                        echo"left:25px; top:-5px;";
+                                                        break;
+                                                    default:
+                                                        echo"0;";
+                                                        break;
+                                                }
+                                            } else {
+                                                if($x==0 && count($program -> icons) == 2) echo "left: 35px;";
+                                            }
+                                            ?>"/>
+                                            <?php $x++; }}?>
+                                    <strong><?php echo $program -> listing_title ?></strong>
+                                    <?php if($program -> listing_small_title){ ?><small><?php echo $program -> listing_small_title ?></small><?php } ?>
+                                    <a href="<?php echo get_permalink($program -> ID); ?>"></a>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <?php
+                }
+
+                ?>
+            </div>
+            <?php } ?>
 			<!-- Created another set of balls but with 3 columns instead of 7 with drop down window-->
 			<?php $table_num = 0; foreach($alpha as $key => $value){ ?>
 			<div id="mobile_<?php echo ++$table_num?>" class="result">

@@ -79,5 +79,12 @@
 .align-self-end {
     align-self: flex-end !important;
 }
+.bubble strong{
 
+    text-shadow: 1px 1px white;
+    z-index:5 !important;
+}
+.bubble small {
+    text-shadow: 1px 1px white;
+}
 

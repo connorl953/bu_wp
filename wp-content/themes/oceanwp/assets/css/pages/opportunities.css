@@ -153,4 +153,13 @@
 .align-self-end {
     align-self: flex-end !important;
 }
+.bubble strong{
+    text-shadow: 1px 1px black;
 
+}
+.bubble small {
+    text-shadow: 1px 1px black;
+}
+.strong-label {
+    z-index:1000 !important;
+}
