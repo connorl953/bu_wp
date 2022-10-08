@@ -88,3 +88,27 @@
     text-shadow: 1px 1px white;
 }
 
+.icons-1 .icon-1{
+    top:-25px !important;
+}
+
+.icons-2 .icon-1{
+    left: 35px !important;
+    top:-15px !important;
+}
+.icons-2 .icon-2{
+    left: 85px !important;
+    top:-15px !important;
+}
+
+.icons-3 .icon-1{
+    top:-20px !important;
+}
+.icons-3 .icon-2{
+    left:95px !important;
+    top:-5px !important;
+}
+.icons-3 .icon-3{
+    left:25px !important;
+    top:-5px !important;
+}

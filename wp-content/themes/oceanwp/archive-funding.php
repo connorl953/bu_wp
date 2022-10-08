@@ -221,7 +221,6 @@ $demographicsSelection = '';
 				}
 
 
-                //$icon_links = array("https://i.gyazo.com/580ff1545044ff59322938bc591bd03b.png", "http://building-u.com/wp-content/uploads/online-event.png", "http://building-u.com/wp-content/uploads/university-event.png"); //used for testing
 
                 foreach($columns as $index => $programs){ ?>
                     <div class="column <?php if($index % 2 !== 0 && $index !== 0){ ?>padding<?php echo ' '.$index; } ?>">
@@ -230,36 +229,19 @@ $demographicsSelection = '';
                                 <div>
                                     <?php
                                     if($program -> icons){
-
-                                        $x = 0;
-                                        //$icon_count = count($icon_links); used for testing
-                                        $icon_count = count($program -> icons);
-                                        // foreach($icon_links as $icon){ used for testing
-                                        foreach($program -> icons as $icon){
-                                            ?>
-
-                                            <img src="<?php echo $icon -> icon;?>" class="icon-<?php echo $x+1; ?>" alt="" style="<?php
-                                            if($icon_count > 2){
-                                                switch($x){
-                                                    case 0:
-                                                        echo "top:-20px;";
-                                                        break;
-                                                    case 1:
-                                                        echo "left:95px; top:-5px;";
-                                                        break;
-                                                    case 2:
-                                                        echo"left:25px; top:-5px;";
-                                                        break;
-                                                    default:
-                                                        echo"0;";
-                                                        break;
-                                                }
-                                            } else {
-                                                if($x==0 && count($program -> icons) == 2) echo "left: 35px;";
-                                            }
-                                            ?>"/>
-                                            <?php $x++; }}?>
-                                    <strong><?php echo $program -> listing_title ?></strong>
+                                    $x = 0;
+                                    $icon_count = count($program -> icons);
+                                    ?>
+                                    <span class="icons-<?php echo $icon_count;?>">
+                                <?php
+                                foreach($program -> icons as $icon){
+                                    ?>
+                                    <img src="<?php echo $icon -> icon;?>" class="icon-<?php echo $x+1;?>" alt=""/>
+                                    <?php $x++;
+                                }
+                                }?>
+                            </span>
+                                    <strong class="listing-title"><?php echo $program -> listing_title ?></strong>
                                     <?php if($program -> listing_small_title){ ?><small><?php echo $program -> listing_small_title ?></small><?php } ?>
                                     <a href="<?php echo get_permalink($program -> ID); ?>"></a>
                                 </div>
